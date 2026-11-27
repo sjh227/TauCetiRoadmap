@@ -29,13 +29,12 @@ namespace TauCetiRoadmap.ExpanderGraphs
 
 open Multiset List
 
-variable {V : Type*}
 
 /-! ## Layer 1: Finite multidigraphs -/
 
 /-! # 1.1 Multidigraphs, degree, and regularity -/
 
-/-- A MultiDiGraph is a set of a vertices, a set of edges,
+/-- A MultiDiGraph is a set of vertices, a set of edges,
 and a map of edges to an ordered pair of vertices -/
 structure MultiDiGraph (V E : Type*) where
   /-- graph vertices -/
@@ -230,9 +229,10 @@ theorem SpectralImpliesEdgeExpansion {V E : Type*} [Fintype V] [DecidableEq V] [
 a sufficiently large fraction of self-loops.
 -/
 theorem EdgeImpliesSpectralExpansion {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq E]
-    (G : MultiDiGraph V E) (hV : 0 < #G.vertices)
+    (G : MultiDiGraph V E) (hV : 2 < #G.vertices)
     (r : ℕ) (hr : 0 < r) (hr1 : G.isRegularOfDegree r)
     (ε α : ℝ) (hα : α ∈ Set.Icc 0 1)
+    (hε : 0 ≤ ε)
     (hEdge : edgeExpander ((#G.vertices : ℝ) / 2) ε r G)
     (hSelfLoops : ∀ v ∈ G.vertices,
       α * (r : ℝ) ≤
@@ -311,6 +311,94 @@ noncomputable def allGraphsH  (n r : ℕ) :
     (Θ(n), θ(r))- bipartite vertex expanders -/
 theorem bipartite_vertex_expanders_exist (n r : ℕ) (hn : 1 ≤ n) (hr : 2 ≤ r):
     (2 / 3 : ℝ) ≤ (#(allGraphsH n r) : ℝ) / (#(allGraphs n r) : ℝ) := by
+  sorry
+
+/-! # 3.2 Random regular graphs are good expanders -/
+
+/-
+SKELETON for roadmap target 3.2. UNTESTED: not compiled against Mathlib.
+
+Paste inside `namespace TauCetiRoadmap.ExpanderGraphs`, after
+`bipartite_vertex_expanders_exist` and before `end TauCetiRoadmap.ExpanderGraphs`.
+Relies on `MultiDiGraph`, `vertexExpander`, `isRegularOfDegree`, `adjacencyMatrix`
+from earlier in Suggested.lean.
+-/
+
+/-! # 3.2 Random regular graphs are good expanders (Claude) -/
+
+/-! ## Model: the pairing (configuration) model
+
+Each of the `N` vertices carries `D` half-edges, so the half-edges are `Fin N × Fin D`.
+A *perfect matching* of the half-edges is a fixed-point-free involution `σ`.
+The graph has one arc `p → σ p` for each half-edge `p`, from the vertex of `p` to the
+vertex of `σ p`. So every undirected edge `{p, σ p}` appears as two opposite arcs
+(symmetric digraph). A self-loop uses two half-edges at one vertex and contributes
+two arcs `v → v`, so loops count twice towards the degree and every vertex has
+in- and out-degree exactly `D`. Parallel edges and loops are allowed.
+
+The sample space is the finite set of perfect matchings of the `N * D` half-edges,
+with the uniform distribution. NOTE: this induces a non-uniform distribution on the
+resulting multigraphs (weighted by loops and edge multiplicities); it is not "uniform over
+D-regular multigraphs". The model must match the one used in the source proof.
+-/
+
+/-- A perfect matching of a set of half-edges, as a fixed-point-free involution. -/
+def IsPerfectMatching {α : Type*} (σ : Equiv.Perm α) : Prop :=
+  Function.Involutive σ ∧ ∀ x, σ x ≠ x
+
+/-- The symmetric multidigraph of a matching `σ` of the half-edges `Fin N × Fin D`;
+the edge type is the set of half-edges themselves. -/
+def pairingGraph (N D : ℕ) (σ : Equiv.Perm (Fin N × Fin D)) :
+    MultiDiGraph (Fin N) (Fin N × Fin D) where
+  vertices := Finset.univ
+  edges := Finset.univ
+  edgeMap := fun p => (p.1, (σ p).1)
+  edgesValid := by
+    intro e _
+    simp
+
+open Classical in
+/-- The finite sample space: all perfect matchings of the `N * D` half-edges.
+Empty unless `N * D` is even. -/
+noncomputable def allPairings (N D : ℕ) : Finset (Equiv.Perm (Fin N × Fin D)) :=
+  Finset.univ.filter (fun σ => IsPerfectMatching σ)
+
+open Classical in
+/-- The matchings whose graph is an `(α N, A)` vertex expander. -/
+noncomputable def goodPairings (N D : ℕ) (α A : ℝ) :
+    Finset (Equiv.Perm (Fin N × Fin D)) :=
+  (allPairings N D).filter
+    (fun σ => vertexExpander (α * (N : ℝ)) A (pairingGraph N D σ))
+
+/-! ### Sanity lemmas (modelling API; contributors may restructure) -/
+
+/-- Every pairing graph is `D`-regular (needs only that `σ` is a bijection). -/
+theorem pairingGraph_isRegularOfDegree (N D : ℕ) (σ : Equiv.Perm (Fin N × Fin D)) :
+    (pairingGraph N D σ).isRegularOfDegree D := by
+  sorry
+
+/-- A matching gives a symmetric adjacency matrix, i.e. an undirected multigraph. -/
+theorem pairingGraph_adjacencyMatrix_isSymm (N D : ℕ)
+    (σ : Equiv.Perm (Fin N × Fin D)) (hσ : IsPerfectMatching σ) :
+    (pairingGraph N D σ).adjacencyMatrix.IsSymm := by
+  sorry
+
+/-- The sample space is nonempty exactly when `N * D` is even. -/
+theorem allPairings_nonempty_iff (N D : ℕ) :
+    (allPairings N D).Nonempty ↔ Even (N * D) := by
+  sorry
+
+/-! ### Headline target -/
+
+/-- Random regular graphs are good expanders (cf. Ref [2, Theorem 4.2]).
+For every `D ≥ 3` there is `α > 0` such that for all sufficiently large `N` with `N * D`
+even, a uniformly random pairing gives a `(α N, D - 1.01)` vertex expander with
+probability at least `1/2`.
+ -/
+theorem random_regular_graphs_expand (D : ℕ) (hD : 3 ≤ D) :
+    ∃ α : ℝ, 0 < α ∧ ∃ N₀ : ℕ, ∀ N : ℕ, N₀ ≤ N → Even (N * D) →
+      (1 / 2 : ℝ) ≤
+        (#(goodPairings N D α ((D : ℝ) - 101 / 100)) : ℝ) / (#(allPairings N D) : ℝ) := by
   sorry
 
 end TauCetiRoadmap.ExpanderGraphs
