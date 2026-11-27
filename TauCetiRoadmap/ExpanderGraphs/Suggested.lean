@@ -153,6 +153,7 @@ def vertexExpander [DecidableEq V] (K : ℝ) (A : ℝ) (G : MultiDiGraph V E ) :
 def edgeExpander [DecidableEq V] (K : ℝ) (ε : ℝ) (r : ℕ) (G : MultiDiGraph V E ) : Prop :=
   ∀ s : Finset V, s ⊆  G.vertices →
       (K < #s) ∨ (( ε * (#s : ℝ) * (r)) ≤ #(G.cut s))
+
 /-! # 2.3 Spectral Expansion -/
 
 /-- Definition of spectral expansion : only valid for regular graphs -/
@@ -184,8 +185,18 @@ theorem SpectralImpliesVertexCor {V E : Type*} [Fintype V] [DecidableEq V] [Deci
         → vertexExpander (1/2 * (#G.vertices : ℝ ) ) (1 + γ) G := by
   sorry
 
+/-- Vertex expansion implies spectral expansion
+(Vadhan, Theorem 4.9). -/
+theorem VertexImpliesSpectral {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq E]
+    (G : MultiDiGraph V E) (hV : 0 < #G.vertices)
+    (r : ℕ) (hr : 0 < r) (hr1 : G.isRegularOfDegree r)
+    (δ : ℝ) (hδ : 0 < δ)
+    (hVertex : vertexExpander ((#G.vertices : ℝ) / 2) (1 + δ) G) :
+    ∃ γ : ℝ, 0 < γ ∧ spectralExpander γ G := by
+  sorry
+
 /-- The expander mixing lemma relating spectral expansion to edge expansion. -/
-lemma ExpanderMixingLemma {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq E]
+theorem ExpanderMixingLemma {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq E]
     (G : MultiDiGraph V E) (hV: 0 < #G.vertices ) (r : ℕ)
     (hr : 0 < r ∧ G.isRegularOfDegree r) (γ : ℝ) (hγ : spectralExpander γ G) :
     ∀ S ⊆ G.vertices, ∀ T ⊆ G.vertices, |((MultiDiGraph.eST G S T) : ℝ)
@@ -196,10 +207,25 @@ lemma ExpanderMixingLemma {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq
   sorry
 
 /-- Non-zero spectral expansion implies non-zero edge expansion-/
-lemma SpectralImpliesEdgeExpansion {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq E]
+theorem SpectralImpliesEdgeExpansion {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq E]
     (G : MultiDiGraph V E) (hV: 0 < #G.vertices)
     (r : ℕ) (hr : 0 < r ∧ G.isRegularOfDegree r)  (γ : ℝ) (hγ : spectralExpander γ G) (hγ2 : 0 < γ):
     edgeExpander ((#G.vertices : ℝ) / 2) (γ / 2) r G := by
+  sorry
+
+/-- Edge expansion implies spectral expansion when every vertex has
+a sufficiently large fraction of self-loops (Vadhan, Theorem 4.14(2)).
+-/
+theorem EdgeImpliesSpectralExpansion {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq E]
+    (G : MultiDiGraph V E) (hV : 0 < #G.vertices)
+    (r : ℕ) (hr : 0 < r) (hr1 : G.isRegularOfDegree r)
+    (ε α : ℝ) (hα : α ∈ Set.Icc 0 1)
+    (hEdge : edgeExpander ((#G.vertices : ℝ) / 2) ε r G)
+    (hSelfLoops : ∀ v ∈ G.vertices,
+      α * (r : ℝ) ≤
+        (((G.incidentOutEdges v).filter
+          (fun e => G.edgeMap e = (v, v))).card : ℝ)) :
+    spectralExpander (α * ε ^ 2 / 2) G := by
   sorry
 
 /-! ## Layer 3: Random regular graphs are good expanders -/
