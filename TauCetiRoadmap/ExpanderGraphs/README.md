@@ -18,6 +18,7 @@ The accompanying Suggested.lean file provides selected Lean definitions and head
 - The neighbourhood used in this project is the outgoing neighbourhood.
 - Regular directed graphs have equal in-degree and out-degree at every vertex.
 - All probability statements must specify their underlying finite sample space and probability distribution.
+- A self-loop contributes two to the degree of its vertex (two arcs $v \to v$), so that undirected graphs correspond to symmetric regular multidigraphs.
 
 ### Formalisation principles
 
@@ -114,7 +115,7 @@ The principal objective is to establish the relationships between vertex, edge a
 The headline results include:
 
 - *Spectral expansion implies vertex expansion.* Ref [2, Theorem 4.6].
-- *Vertex expansion implies spectral expansion.* Ref [2, Theorem 4.9]. The intended result is that a regular graph with sufficiently strong vertex expansion has a positive spectral gap. The precise hypotheses and quantitative dependence should follow the source theorem.
+- *Vertex expansion implies spectral expansion.* Ref [2, Theorem 4.9]. The intended result is that a regular graph with sufficiently strong vertex expansion has a positive spectral gap. 
 - *Spectral expansion implies edge expansion.* Ref [2, Theorem 4.14(1)].
 - *Edge expansion implies spectral expansion under an appropriate self-loop condition.* Ref [2, Theorem 4.14(2)]. The self-loop hypothesis is essential to the stated result and must not be omitted.
 - *Expander mixing lemma.* Ref [2, Lemma 4.15]. Formalise the relationship between the number of edges between two vertex subsets and the product of their relative sizes, with an error controlled by the spectral expansion parameter.
@@ -135,8 +136,8 @@ The probabilistic foundations required for these results form part of this layer
 
 The first objective is to establish the bipartite random graph result.
 
-Following Ref [3, Section 5.1], consider a bipartite multigraph with: N vertices in the left part. N vertices in the right part.
-Every left vertex having degree D, counted with multiplicity. No restriction that the right vertices have equal degrees.
+Following Ref [3, Section 5.1], consider a bipartite multigraph with: n vertices in the left part. n vertices in the right part.
+Every left vertex having degree r, counted with multiplicity. No restriction that the right vertices have equal degrees.
 
 The objective is to formalise Ref [3, Theorem 31]
 
@@ -144,17 +145,25 @@ The existing construction in ```Suggested.lean```, using ```Ω```, ```allM```, `
 
 In particular, the probability statement should be interpreted with respect to the finite sample space of the construction. If uniformity over the function tuples and uniformity over distinct resulting graphs are used interchangeably, the required correspondence must be justified.
 
-### 3.2 Random regular graphs are good expanders
+### 3.2 Random regular graphs are good expanders (Claude)
 
-The second objective is to establish the corresponding result for general random regular graphs.
+The second objective is to establish the corresponding result for general random regular graphs, following Ref [2, Theorem 4.2].
 
-Following Ref [2, Theorem 4.2], the intended result is that for every integer degree D≥3, there is a positive constant α such that, for sufficiently large admissible N, a uniformly random D-regular undirected graph on N vertices is a vertex expander with probability at least 1/2.
+**Model.** Random regular graphs are taken in the *pairing (configuration) model*:
 
-The formalisation should specify the random regular graph model precisely, including the treatment of parallel edges and the probability distribution.
+- Each of the $N$ vertices carries $D$ half-edges, so the half-edges form $[N]\times[D]$.
+- A perfect matching of the half-edges is a fixed-point-free involution $\sigma$.
+- The graph of $\sigma$ has one arc from the vertex of $p$ to the vertex of $\sigma(p)$ for each half-edge $p$. Each undirected edge is therefore a pair of opposite arcs, loops and parallel edges are permitted, and every vertex has in-degree and out-degree exactly $D$.
 
-The choice of construction and proof strategy is left to the implementing agent, subject to establishing the stated mathematical result.
+**Sample space.** The sample space is the finite set of perfect matchings of the $N D$ half-edges, with the uniform distribution. It is nonempty exactly when $ND$ is even, and this is the admissibility condition on $N$. This distribution is uniform over matchings, not over multigraphs: graphs with loops or repeated edges receive different weights.
 
-This result should be treated as a distinct milestone from the bipartite construction in Section 3.1.
+**Target.** For every integer $D \ge 3$ there is a constant $\alpha > 0$ and $N_0$ such that, for all $N \ge N_0$ with $ND$ even, a uniformly random matching yields a graph that is an $(\alpha N,\ D - 1.01)$ vertex expander with probability at least $1/2$.
+
+Suggested.lean provides `pairingGraph`, `allPairings`, `goodPairings` and the headline signature `random_regular_graphs_expand`, together with sanity lemmas (regularity, symmetry of the adjacency matrix, nonemptiness of the sample space). These fix the model and the statement; the proof strategy is left to the implementing agent.
+
+If a different model is preferred (for example a union of random matchings), a transfer lemma between the models must be proved or the choice justified, since the statement is sensitive to the treatment of loops and parallel edges.
+
+This result is a distinct milestone from the bipartite construction in Section 3.1.
 
 ## Scope and ownership
 
