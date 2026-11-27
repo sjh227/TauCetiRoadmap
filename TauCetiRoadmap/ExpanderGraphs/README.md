@@ -138,8 +138,7 @@ The first objective is to establish the bipartite random graph result.
 Following Ref [1 Section 5.1], consider a bipartite multigraph with: N vertices in the left part. N vertices in the right part.
 Every left vertex having degree D, counted with multiplicity. No restriction that the right vertices have equal degrees.
 
-The objective is to prove that there is a positive expansion parameter α, for the appropriate degree and sufficiently large 
-N, such that the resulting random bipartite multigraph is a vertex expander with probability at least 1/2.
+The objective is to formalise Ref [1, Theorem 31]
 
 The existing construction in ```Suggested.lean```, using ```Ω```, ```allM```, ```allGraphs``` and ```allGraphsH```, provides a starting point for this development.
 
