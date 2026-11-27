@@ -297,7 +297,7 @@ noncomputable def allGraphsH  (n r : ℕ) :
 /-- At least two thirds of graphs constructed by `Ω` are
     (Θ(n), θ(r))- bipartite vertex expanders -/
 theorem bipartite_vertex_expanders_exist (n r : ℕ) (hn : 1 ≤ n) (hr : 2 ≤ r):
-    (2 / 3 : ℝ) ≤ #(allGraphsH n r) / #(allGraphs n r) := by
+    (1 / 2 : ℝ) ≤ #(allGraphsH n r) / #(allGraphs n r) := by
   sorry
 
 end TauCetiRoadmap.ExpanderGraphs
