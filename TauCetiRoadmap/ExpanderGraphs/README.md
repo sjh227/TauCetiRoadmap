@@ -8,12 +8,10 @@
 ## Conventions
 
 ## Layer 1: Finite Multidigraph Foundations
-### 1.1 Basic Definitions
-### 1.2 Degrees and Regularity
-### 1.3 Neighbourhoods and Boundaries
-### 1.4 Graph Operations and Basic Properties
-### 1.5 Undirected Graphs
-### 1.6 Required API and Supporting Results
+### 1.1  Multidigraphs, degree, regularity and neighbourhood
+### 1.2 Adjacency matrices and random walk matrices
+### 1.3 Spectral gap
+### 1.X Required API and Supporting Results
 ## Layer 2: Expansion Theory
 ### 2.1 Vertex Expansion
 ### 2.2 Edge Expansion
