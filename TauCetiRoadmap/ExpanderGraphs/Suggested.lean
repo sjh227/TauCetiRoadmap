@@ -129,16 +129,16 @@ noncomputable def MultiDiGraph.randomWalkMatrix [Fintype V]
 /-! # 1.4 Spectral gap -/
 
 /-- Any vector of non-negative reals that sums to one is a discrete probability distribution -/
-noncomputable def IsProbVector (x : α → ℝ) (s : Finset α) : Prop :=
+noncomputable def IsProbVector {α : Type*} (x : α → ℝ) (s : Finset α) : Prop :=
   (∑ i ∈ s, x i = 1) ∧ (∀ i ∈ s, 0 ≤ x i) ∧ (∀ i ∉ s, x i = 0)
 
 /-- The `ℓ₂` Norm squared of a vector -/
-noncomputable def L2normSQ (x : α → ℝ) (s : Finset α) : ℝ :=
+noncomputable def L2normSQ {α : Type*} (x : α → ℝ) (s : Finset α) : ℝ :=
    ∑ i ∈ s, (x i)^2
 
 /-- The uniform distribution over a specified set;
     note this is only meaningful for non-empty sets -/
-noncomputable def UniformDist (s : Finset α) : α → ℝ :=
+noncomputable def UniformDist {α : Type*} (s : Finset α) : α → ℝ :=
   fun a => if a ∈ s then 1 / #s else 0
 
 /-- The spectral gap of the random walk matrix of a MultiDiGraph -/
