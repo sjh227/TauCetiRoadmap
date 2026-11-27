@@ -11,26 +11,17 @@
 ### 1.1  Multidigraphs, degree, regularity and neighbourhood
 ### 1.2 Adjacency matrices and random walk matrices
 ### 1.3 Spectral gap
-### 1.X Required API and Supporting Results
+### 1.4 Required API and Supporting Results
 ## Layer 2: Expansion Theory
 ### 2.1 Vertex Expansion
 ### 2.2 Edge Expansion
 ### 2.3 Spectral Expansion
 ### 2.4 Relationships Between Expansion Notions
 ### 2.5 Required API and Supporting Results
-## Layer 3: Probabilistic Foundations
-### 3.1 Probability Spaces and Distributions
-### 3.2 Probability Vectors and Stochastic Matrices
-### 3.3 Random Variables and Independence
-### 3.4 Counting and Probability Estimates
-### 3.5 Asymptotic Probability Results
-### 3.6 Required API and Supporting Results
-## Layer 4: Random Regular Graphs and Expander Existence
-### 4.1 Random Regular Graph Models
-### 4.2 The Configuration Model
-### 4.3 Expansion Probability Estimates
-### 4.4 Main Theorem: Random Regular Graphs Are Expanders
-### 4.5 Required API and Supporting Results
+## Layer 3: Random regular graphs are good expanders
+### 3.1 Random regular bipartite graphs are good expanders
+### 3.2 Random regular graphs are good expanders
+### 3.3 Required API and Supporting Results
 
 ## Scope and ownership
 
