@@ -111,7 +111,7 @@ def MultiDiGraph.neighbourhood_as_multiset [DecidableEq V]
 def MultiDiGraph.neighbourhoodOfSet_as_multiset [DecidableEq V]
     (G : MultiDiGraph V E) (vs : Finset V) : Multiset V := vs.val.bind G.neighbourhood_as_multiset
 
-/-! # 1.2 Adjacency matrices and random walk matrices -/
+/-! # 1.3 Adjacency matrices and random walk matrices -/
 
 /-- The adjacency matrix of a multidigraph -/
 def MultiDiGraph.adjacencyMatrix [DecidableEq V]
@@ -126,7 +126,7 @@ noncomputable def MultiDiGraph.randomWalkMatrix [Fintype V]
   Matrix.of fun u v => if (∑ v, G.adjacencyMatrix u v : ℝ) = 0 then (if u = v then (1: ℝ) else
     (0: ℝ)) else (G.adjacencyMatrix u v : ℝ) / (∑ v, G.adjacencyMatrix u v : ℝ)
 
-/-! # 1.3 Spectral gap -/
+/-! # 1.4 Spectral gap -/
 
 /-- Any vector of non-negative reals that sums to one is a discrete probability distribution -/
 noncomputable def IsProbVector (x : α → ℝ) (s : Finset α) : Prop :=
