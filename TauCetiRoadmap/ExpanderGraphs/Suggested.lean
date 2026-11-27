@@ -3,12 +3,26 @@ import Mathlib
 /-!
 # ExpanderGraphs: target signatures
 
-**This file is not the roadmap.** The roadmap is `README.md`. This file states the roadmap's
-headline theorems against the pinned Mathlib and Tau Ceti, each with `sorry`, together with the
-two definitions they need; every definition has a real body. Every headline theorem of the
-README is statable at the pins and is stated here. The README's remaining targets, API lists and
-Checks are not restated.
+**This file is not the roadmap.** 
 
+This file provides compile-checked Lean interfaces for the mathematical
+targets specified in `README.md`. The README is the authoritative roadmap. 
+This file is a companion to it, not a replacement or a complete inventory 
+of the required API.
+
+## Conventions
+
+* Definitions have complete implementations.
+* Headline theorem statements are included with `sorry` as placeholders.
+* Supporting lemmas and intermediate API declarations are left to
+  contributors unless explicitly specified in the README.
+* Existing Mathlib and Tau Ceti definitions and results should be reused
+  wherever appropriate.
+* The interfaces in this file are checked against the Lean toolchain
+  and dependency revisions pinned by this repository.
+
+See `README.md` for the mathematical scope, dependencies, references,
+and remaining implementation requirements.
 -/
 
 namespace TauCetiRoadmap.ExpanderGraphs
