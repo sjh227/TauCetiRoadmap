@@ -307,7 +307,7 @@ noncomputable def allGraphsH  (n r : ℕ) :
   {G ∈ allGraphs n r | isBipartiteVertexExpander G (n / ((Real.exp 1)^3 * r^4))
   (r-2) {i : Fin (n + n) | i < n} }
 
-/-- At least two thirds of graphs constructed by `Ω` are
+/-- At least half of graphs constructed by `Ω` are
     (Θ(n), θ(r))- bipartite vertex expanders -/
 theorem bipartite_vertex_expanders_exist (n r : ℕ) (hn : 1 ≤ n) (hr : 2 ≤ r):
     (1 / 2 : ℝ) ≤ #(allGraphsH n r) / #(allGraphs n r) := by
