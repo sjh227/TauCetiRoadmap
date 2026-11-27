@@ -191,7 +191,7 @@ theorem SpectralImpliesVertex {V E : Type*} [Fintype V] [DecidableEq V]
   sorry
 
 /-- A notable special case of `SpectralImpliesVertex`: a `γ` spectral expander is in particular
-a `(|G| / 2, 1 + γ)` spectral expander -/
+a `(|G| / 2, 1 + γ)` vertex expander -/
 theorem SpectralImpliesVertexCor {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq E]
     (G : MultiDiGraph V E) (hV: 0 < #G.vertices )
     (r : ℕ) (hr : 0 < r) (hr1 : G.isRegularOfDegree r) :
