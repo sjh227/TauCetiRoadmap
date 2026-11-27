@@ -313,16 +313,6 @@ theorem bipartite_vertex_expanders_exist (n r : ℕ) (hn : 1 ≤ n) (hr : 2 ≤ 
     (2 / 3 : ℝ) ≤ (#(allGraphsH n r) : ℝ) / (#(allGraphs n r) : ℝ) := by
   sorry
 
-/-! # 3.2 Random regular graphs are good expanders -/
-
-/-
-SKELETON for roadmap target 3.2. UNTESTED: not compiled against Mathlib.
-
-Paste inside `namespace TauCetiRoadmap.ExpanderGraphs`, after
-`bipartite_vertex_expanders_exist` and before `end TauCetiRoadmap.ExpanderGraphs`.
-Relies on `MultiDiGraph`, `vertexExpander`, `isRegularOfDegree`, `adjacencyMatrix`
-from earlier in Suggested.lean.
--/
 
 /-! # 3.2 Random regular graphs are good expanders (Claude) -/
 
