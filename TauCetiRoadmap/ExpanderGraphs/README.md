@@ -1,10 +1,10 @@
 # Roadmap: Expander Graphs
-**Summary.** This roadmap develops the foundations of the theory of expander graphs. It builds on the existing Lean repo LeanExpanderGraph [1], which formalises results from the literature on expander graphs, most notably Ref [2]. The ultimate objective is to formalise the result that random regular graphs are good expanders with high probability.
+**Summary.** This roadmap develops the foundations of the theory of expander graphs. It builds on the existing Lean repo LeanExpanderGraph [1], which formalises results from the literature on expander graphs, most notably Ref [2]. The ultimate objective is to formalise the result that random regular graphs are good expanders with constant probability.
 
 The roadmap is divided into three layers: 
 - *Finite Multidigraph foundations* the definitions and results needed to represent finite directed graphs with parallel edges, and to develop their associated random walks and spectral theory.
 - *Expansion theory*  the definitions of vertex, edge and spectral expansion, together with the relationships between them.
-- *Random Regular Graphs are good expanders* the probabilistic and combinatorial arguments establishing that random regular bipartite graphs, and subsequently random regular graphs, are good expanders with high probability.
+- *Random Regular Graphs are good expanders* the probabilistic and combinatorial arguments establishing that random regular bipartite graphs, and subsequently random regular graphs, are good expanders with constant probability.
 
 The accompanying Suggested.lean file provides selected Lean definitions and headline theorem signatures. It is not intended to prescribe every intermediate definition or supporting lemma needed to complete the roadmap.
 
