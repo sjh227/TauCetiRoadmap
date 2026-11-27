@@ -125,7 +125,7 @@ These results should be formalised with their precise hypotheses. They should no
 
 The purpose of this layer is to establish the existence of good expanders through probabilistic constructions.
 
-The principal mathematical reference for random regular bipartite graphs being good expanders is Ref [1, Section 5.1]
+The principal mathematical reference for random regular bipartite graphs being good expanders is Ref [3, Section 5.1]
 
 The principal mathematical reference for random regular graphs being good expanders is Ref [2, Theorem 4.2]
 
@@ -135,10 +135,10 @@ The probabilistic foundations required for these results form part of this layer
 
 The first objective is to establish the bipartite random graph result.
 
-Following Ref [1 Section 5.1], consider a bipartite multigraph with: N vertices in the left part. N vertices in the right part.
+Following Ref [3, Section 5.1], consider a bipartite multigraph with: N vertices in the left part. N vertices in the right part.
 Every left vertex having degree D, counted with multiplicity. No restriction that the right vertices have equal degrees.
 
-The objective is to formalise Ref [1, Theorem 31]
+The objective is to formalise Ref [3, Theorem 31]
 
 The existing construction in ```Suggested.lean```, using ```Ω```, ```allM```, ```allGraphs``` and ```allGraphsH```, provides a starting point for this development.
 
@@ -189,4 +189,6 @@ The repository's pinned Mathlib revision is authoritative. Any proposed dependen
 [1] https://github.com/sjh227/LeanExpanderGraph 
 
 [2] https://people.seas.harvard.edu/%7Esalil/cs225/spring09/lecnotes/Chap4.pdf
+
+[3] https://github.com/sjh227/LeanExpanderGraph/blob/main/Formalising_Expander_Graphs.pdf 
 
