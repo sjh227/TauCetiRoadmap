@@ -76,7 +76,7 @@ def MultiDiGraph.regular [DecidableEq V]
 
 /-! # 1.2 Neighbourhoods and cuts -/
 
-/-- Neighbourhood: for this purposes of the present project defined as the set of
+/-- Neighbourhood: for the purposes of the present project defined as the set of
 vertices connected by an out edge (nonstandard in some of the literature) -/
 def MultiDiGraph.neighbourhood [DecidableEq V]
     (G : MultiDiGraph V E) (v : V) : Finset V :=
@@ -229,7 +229,7 @@ theorem SpectralImpliesEdgeExpansion {V E : Type*} [Fintype V] [DecidableEq V] [
 a sufficiently large fraction of self-loops.
 -/
 theorem EdgeImpliesSpectralExpansion {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq E]
-    (G : MultiDiGraph V E) (hV : 2 < #G.vertices)
+    (G : MultiDiGraph V E) (hV : 2 ≤ #G.vertices)
     (r : ℕ) (hr : 0 < r) (hr1 : G.isRegularOfDegree r)
     (ε α : ℝ) (hα : α ∈ Set.Icc 0 1)
     (hε : 0 ≤ ε)
