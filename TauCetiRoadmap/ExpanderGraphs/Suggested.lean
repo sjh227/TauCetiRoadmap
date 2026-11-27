@@ -19,7 +19,7 @@ variable {V : Type*}
 
 /-! ## Layer 1: Finite multidigraphs -/
 
-/-! # 1.1 Multidigraphs, degree, regularity and neighbourhoods -/
+/-! # 1.1 Multidigraphs, degree, and regularity -/
 
 /-- A MultiDiGraph is a set of a vertices, a set of edges,
 and a map of edges to an ordered pair of vertices -/
@@ -43,25 +43,25 @@ def MultiDiGraph.incidentOutEdges [DecidableEq V]
 def MultiDiGraph.OutDegree [DecidableEq V]
     (G : MultiDiGraph V E) (v : V) : ℕ := #(G.incidentOutEdges v)
 
-/-- All incident edges of a vertex are all edges that start or finish at that vertex -/
-def MultiDiGraph.incidentAllEdges (G : MultiDiGraph V E)
-    [DecidableEq V] (v : V) : Finset E :=
-  {e ∈ G.edges | (G.edgeMap e).fst = v ∨ (G.edgeMap e).snd = v}
+/-- Incident inedges of a vertex are edges whose second endpoint is that vertex -/
+def MultiDiGraph.incidentInEdges [DecidableEq V]
+    (G : MultiDiGraph V E) (v : V) : Finset E :=
+  {e ∈ G.edges | (G.edgeMap e).snd = v}
 
-/-- The degree of a vertex is the cardinality of the set of incident edges -/
-def MultiDiGraph.Degree [DecidableEq V]
-    (G : MultiDiGraph V E) (v : V) : ℕ := #(G.incidentAllEdges v)
+/-- The in degree of a vertex is the cardinality of the set of incident inedges -/
+def MultiDiGraph.InDegree [DecidableEq V]
+    (G : MultiDiGraph V E) (v : V) : ℕ := #(G.incidentInEdges v)
 
 /-- A regular multidigraph is such that each vertex has the same in and out degree -/
 def MultiDiGraph.isRegularOfDegree [DecidableEq V] (G : MultiDiGraph V E) (r : ℕ) :
-    Prop :=
-  ∀ v ∈ G.vertices, (#(G.edges.filter (fun e => (G.edgeMap e).fst = v)) = r) ∧
-      (#(G.edges.filter (fun e => (G.edgeMap e).snd = v)) = r)
+    Prop := ∀ v ∈ G.vertices, (G.OutDegree v = r) ∧ (G.InDegree v = r)
 
 /-- A graph is regular if it is regular of some degree -/
 def MultiDiGraph.regular [DecidableEq V]
     (G : MultiDiGraph V E) : Prop :=
   ∃ r : ℕ, G.isRegularOfDegree r
+
+/-! # 1.2 Neighbourhoods and cuts -/
 
 /-- Neighbourhood: for this purposes of the present project defined as the set of
 vertices connected by an out edge (nonstandard in some of the literature) -/
