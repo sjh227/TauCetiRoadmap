@@ -1,41 +1,38 @@
 # Roadmap: Expander Graphs
-**Summary.** 
-
-
-Motivation and mathematical context.
-Scope of the development.
-Existing LeanExpanderGraph infrastructure.
-Intended mathematical endpoint.
-High-level description of the four layers.
+**Summary.** This roadmap develops the foundations of the theory of expander graphs. It builds on the existing Lean repo LeanExpanderGraph [1], which broadly aims to formalise the results in Ref. [2]. In particular, this roadmap builds towards the result that random regular graphs are good expanders with high probability. The roadmap is split into four layers: 
+- *Finite Multidigraph foundations* the basic definitions and results needed to define directed graphs which admit parallel edges, as are the essential objects in the theory.
+- *Expansion theory* definitions of the three forms of expansion, and the relationships therebetween.
+- *Probabilistic foundations* serves two purposes: to allow spectral expansion to be defined in terms of convergence of a random walk on the stationary distribution, and to facilitate the construction of random graphs.
+- *Random Regular Graphs and Expander Existence* the seminal result that random regular graphs are good expanders with high probability. 
 
 ## Conventions
 
 ## Layer 1: Finite Multidigraph Foundations
-### 2.1 Basic Definitions
-### 2.2 Degrees and Regularity
-### 2.3 Neighbourhoods and Boundaries
-### 2.4 Graph Operations and Basic Properties
-### 2.5 Undirected Graphs
-### 2.6 Required API and Supporting Results
+### 1.1 Basic Definitions
+### 1.2 Degrees and Regularity
+### 1.3 Neighbourhoods and Boundaries
+### 1.4 Graph Operations and Basic Properties
+### 1.5 Undirected Graphs
+### 1.6 Required API and Supporting Results
 ## Layer 2: Expansion Theory
-### 3.1 Vertex Expansion
-### 3.2 Edge Expansion
-### 3.3 Spectral Expansion
-### 3.4 Relationships Between Expansion Notions
-### 3.5 Required API and Supporting Results
+### 2.1 Vertex Expansion
+### 2.2 Edge Expansion
+### 2.3 Spectral Expansion
+### 2.4 Relationships Between Expansion Notions
+### 2.5 Required API and Supporting Results
 ## Layer 3: Probabilistic Foundations
-### 4.1 Probability Spaces and Distributions
-### 4.2 Probability Vectors and Stochastic Matrices
-### 4.3 Random Variables and Independence
-### 4.4 Counting and Probability Estimates
-### 4.5 Asymptotic Probability Results
-### 4.6 Required API and Supporting Results
+### 3.1 Probability Spaces and Distributions
+### 3.2 Probability Vectors and Stochastic Matrices
+### 3.3 Random Variables and Independence
+### 3.4 Counting and Probability Estimates
+### 3.5 Asymptotic Probability Results
+### 3.6 Required API and Supporting Results
 ## Layer 4: Random Regular Graphs and Expander Existence
-### 5.1 Random Regular Graph Models
-### 5.2 The Configuration Model
-### 5.3 Expansion Probability Estimates
-### 5.4 Main Theorem: Random Regular Graphs Are Expanders
-### 5.5 Required API and Supporting Results
+### 4.1 Random Regular Graph Models
+### 4.2 The Configuration Model
+### 4.3 Expansion Probability Estimates
+### 4.4 Main Theorem: Random Regular Graphs Are Expanders
+### 4.5 Required API and Supporting Results
 
 ## Scope and ownership
 
@@ -57,3 +54,7 @@ Tau Ceti dependencies.
 
 
 ## References
+[1] https://github.com/sjh227/LeanExpanderGraph 
+
+[2] https://people.seas.harvard.edu/%7Esalil/cs225/spring09/lecnotes/Chap4.pdf
+
