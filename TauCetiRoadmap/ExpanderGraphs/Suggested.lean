@@ -134,7 +134,7 @@ noncomputable def MultiDiGraph.SpectralGap [Fintype V]
     (y = √ (L2normSQ ((p ᵥ* G.randomWalkMatrix) - UniformDist (G.vertices)) G.vertices)
     / √ (L2normSQ (p - UniformDist (G.vertices)) G.vertices))}
 
-/-! ## Layer 1: Expansion Theory -/
+/-! ## Layer 2: Expansion Theory -/
 
 /-! # 2.1 Vertex Expansion -/ 
 
