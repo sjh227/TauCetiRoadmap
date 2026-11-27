@@ -14,7 +14,7 @@ The accompanying Suggested.lean file provides selected Lean definitions and head
 
 - Graphs are finite directed multigraphs unless explicitly stated otherwise.
 - Parallel edges are permitted and must be counted with their multiplicities where appropriate.
-- An edge (u, v) is directed from u to v.
+- An edge $(u, v)$ is directed from $u$ to $v$.
 - The neighbourhood used in this project is the outgoing neighbourhood.
 - Regular directed graphs have equal in-degree and out-degree at every vertex.
 - All probability statements must specify their underlying finite sample space and probability distribution.
@@ -31,8 +31,6 @@ The accompanying Suggested.lean file provides selected Lean definitions and head
 ## Layer 1: Finite Multidigraph Foundations
 
 The purpose of this layer is to establish the graph-theoretic and linear-algebraic foundations required for the subsequent theory of expansion.
-
-The principal mathematical reference is Chapter 4 of Vadhan's lecture notes.
 
 ### 1.1  Multidigraphs, degree and regularity
 
@@ -75,7 +73,7 @@ Establish the fundamental properties of this matrix, particularly for regular di
 ### 1.4 Spectral gap
 
 Define the spectral gap using the contraction of the random walk towards the uniform distribution in the 
-L2 metric, following Vadhan's formulation.
+$L2$ metric, following the definition of $\lambda(G)$ in Ref [2, Section 4.1.2].
 
 The development should establish that the definition is mathematically meaningful under the appropriate hypotheses, including:
 
@@ -91,15 +89,15 @@ The spectral gap should provide the foundation for the definition of spectral ex
 
 The purpose of this layer is to formalise the principal notions of expansion and establish the mathematical relationships between them.
 
-The principal reference is Sections 4.1.1–4.1.3 of Vadhan's lecture notes.
+The principal reference is [2, Sections 4.1.1–4.1.3].
 
 ### 2.1 Vertex Expansion
 
-Define vertex expansion in terms of the growth of outgoing neighbourhoods of sufficiently small vertex subsets. The formalisation should support the general parameters, rather than only one particular choice.
+Define vertex expansion, as in Ref [2, Def 4.1], in terms of the growth of outgoing neighbourhoods of sufficiently small vertex subsets. The formalisation should support the general parameters, rather than only one particular choice.
 
 ### 2.2 Edge Expansion
 
-Define edge expansion in terms of the number of directed edges leaving a sufficiently small vertex subset.
+Define edge expansion, as in Ref [2, Def 4.13], in terms of the number of directed edges leaving a sufficiently small vertex subset. 
 
 Parallel edges must be counted with their multiplicities.
 
@@ -107,7 +105,7 @@ The regularity assumptions and the precise definition of the directed boundary m
 
 ### 2.3 Spectral Expansion
 
-Define spectral expansion in terms of the spectral gap from Layer 1.
+Define spectral expansion, as in Ref [2, Def 4.5], in terms of the spectral gap from Layer 1.
 
 ### 2.4 Relationships Between Expansion Notions
 
@@ -115,11 +113,11 @@ The principal objective is to establish the relationships between vertex, edge a
 
 The headline results include:
 
-- *Spectral expansion implies vertex expansion.* [2] Theorem 4.6.
-- *Vertex expansion implies spectral expansion.* [2] Theorem 4.9. The intended result is that a regular graph with sufficiently strong vertex expansion has a positive spectral gap. The precise hypotheses and quantitative dependence should follow the source theorem.
-- *Spectral expansion implies edge expansion.* [2] Theorem 4.14(1).
-- *Edge expansion implies spectral expansion under an appropriate self-loop condition.* [2] Theorem 4.14(2). The self-loop hypothesis is essential to the stated result and must not be omitted.
-- *Expander mixing lemma.* [2] Lemma 4.15. Formalise the relationship between the number of edges between two vertex subsets and the product of their relative sizes, with an error controlled by the spectral expansion parameter.
+- *Spectral expansion implies vertex expansion.* Ref [2, Theorem 4.6].
+- *Vertex expansion implies spectral expansion.* Ref [2, Theorem 4.9]. The intended result is that a regular graph with sufficiently strong vertex expansion has a positive spectral gap. The precise hypotheses and quantitative dependence should follow the source theorem.
+- *Spectral expansion implies edge expansion.* Ref [2, Theorem 4.14(1)].
+- *Edge expansion implies spectral expansion under an appropriate self-loop condition.* Ref [2, Theorem 4.14(2)]. The self-loop hypothesis is essential to the stated result and must not be omitted.
+- *Expander mixing lemma.* Ref [2, Lemma 4.15]. Formalise the relationship between the number of edges between two vertex subsets and the product of their relative sizes, with an error controlled by the spectral expansion parameter.
 
 These results should be formalised with their precise hypotheses. They should not be treated as unrestricted equivalences.
 
@@ -127,9 +125,9 @@ These results should be formalised with their precise hypotheses. They should no
 
 The purpose of this layer is to establish the existence of good expanders through probabilistic constructions.
 
-The principal mathematical reference for random regular bipartite graphs being good expanders is [1] Section 5.1
+The principal mathematical reference for random regular bipartite graphs being good expanders is Ref [1, Section 5.1]
 
-The principal mathematical reference for random regular graphs being good expanders is [1] Theorem 4.2
+The principal mathematical reference for random regular graphs being good expanders is Ref [2, Theorem 4.2]
 
 The probabilistic foundations required for these results form part of this layer. A separate general-purpose probability library is not an objective of this roadmap.
 
@@ -137,7 +135,7 @@ The probabilistic foundations required for these results form part of this layer
 
 The first objective is to establish the bipartite random graph result.
 
-Following [1] Section 5.1, consider a bipartite multigraph with: N vertices in the left part. N vertices in the right part.
+Following Ref [1 Section 5.1], consider a bipartite multigraph with: N vertices in the left part. N vertices in the right part.
 Every left vertex having degree D, counted with multiplicity. No restriction that the right vertices have equal degrees.
 
 The objective is to prove that there is a positive expansion parameter α, for the appropriate degree and sufficiently large 
@@ -151,7 +149,7 @@ In particular, the probability statement should be interpreted with respect to t
 
 The second objective is to establish the corresponding result for general random regular graphs.
 
-Following Vadhan, Theorem 4.2, the intended result is that for every integer degree D≥3, there is a positive constant α such that, for sufficiently large admissible N, a uniformly random D-regular undirected graph on N vertices is a vertex expander with probability at least 1/2.
+Following Ref [2, Theorem 4.2], the intended result is that for every integer degree D≥3, there is a positive constant α such that, for sufficiently large admissible N, a uniformly random D-regular undirected graph on N vertices is a vertex expander with probability at least 1/2.
 
 The formalisation should specify the random regular graph model precisely, including the treatment of parallel edges and the probability distribution.
 
@@ -159,18 +157,15 @@ The choice of construction and proof strategy is left to the implementing agent,
 
 This result should be treated as a distinct milestone from the bipartite construction in Section 3.1.
 
-### 3.3 Required API and Supporting Results
-
 ## Scope and ownership
 
-### Out of Scope (Recommended Future Roadmap(s))
+This roadmap owns the targets stated above. Further results in the theory of expander graphs that are left to future roadmap(s) include:
 
-Cayley graph constructions.
-Zig-zag products.
-Explicit algebraic constructions.
-Ramanujan graph constructions.
-Applications of expander graphs.
-Advanced pseudorandomness and derandomisation theory.
+- Cayley graph constructions.
+- Zig-zag products.
+- Explicit algebraic constructions such as Ramanujan graph constructions.
+- Applications of expander graphs.
+- Advanced pseudorandomness and derandomisation theory.
 
 ## Exact supplier contracts
 
