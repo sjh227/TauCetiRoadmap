@@ -199,8 +199,7 @@ theorem SpectralImpliesVertexCor {V E : Type*} [Fintype V] [DecidableEq V] [Deci
         → vertexExpander (1/2 * (#G.vertices : ℝ ) ) (1 + γ) G := by
   sorry
 
-/-- Vertex expansion implies spectral expansion
-(Vadhan, Theorem 4.9). -/
+/-- Vertex expansion implies spectral expansion -/
 theorem VertexImpliesSpectral {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq E]
     (G : MultiDiGraph V E) (hV : 0 < #G.vertices)
     (r : ℕ) (hr : 0 < r) (hr1 : G.isRegularOfDegree r)
@@ -228,7 +227,7 @@ theorem SpectralImpliesEdgeExpansion {V E : Type*} [Fintype V] [DecidableEq V] [
   sorry
 
 /-- Edge expansion implies spectral expansion when every vertex has
-a sufficiently large fraction of self-loops (Vadhan, Theorem 4.14(2)).
+a sufficiently large fraction of self-loops.
 -/
 theorem EdgeImpliesSpectralExpansion {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq E]
     (G : MultiDiGraph V E) (hV : 0 < #G.vertices)
