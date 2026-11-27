@@ -13,6 +13,8 @@ Checks are not restated.
 
 namespace TauCetiRoadmap.ExpanderGraphs
 
+open Multiset List
+
 variable {V : Type*}
 
 /-! ## Layer 1: Finite multidigraphs -/
@@ -132,10 +134,75 @@ noncomputable def MultiDiGraph.SpectralGap [Fintype V]
     (y = √ (L2normSQ ((p ᵥ* G.randomWalkMatrix) - UniformDist (G.vertices)) G.vertices)
     / √ (L2normSQ (p - UniformDist (G.vertices)) G.vertices))}
 
+/-! ## Layer 1: Expansion Theory -/
 
-open Multiset List
+/-! # 2.1 Vertex Expansion -/ 
 
+/-- Definition of vertex expansion. That `V` is Fintype not needed in the definition,
+    but in practice `V` will be a Fintype for envisaged applications -/
+def vertexExpander [DecidableEq V] (K : ℝ) (A : ℝ) (G : MultiDiGraph V E ) : Prop :=
+  ∀ s : Finset V, s ⊆  G.vertices →
+       (A * #s ≤ #(MultiDiGraph.neighbourhoodOfSet G s)) ∨ K < #s
 
+/-! # 2.2 Edge Expansion -/
+
+/-- Definition of edge expansion: only valid for regular graphs. That `V` is a Fintype
+    not needed in the definition, but in practice `V` will be a Fintype for envisaged applications.
+    `r` is intended to be the regular degree of the graph, and that property should be assumed
+    when using this definition -/
+def edgeExpander [DecidableEq V] (K : ℝ) (ε : ℝ) (r : ℕ) (G : MultiDiGraph V E ) : Prop :=
+  ∀ s : Finset V, s ⊆  G.vertices →
+      (K < #s) ∨ (( ε * (#s : ℝ) * (r)) ≤ #(G.cut s))
+/-! # 2.3 Spectral Expansion -/
+
+/-- Definition of spectral expansion : only valid for regular graphs -/
+def spectralExpander [Fintype V] [DecidableEq V] (γ : ℝ) (G : MultiDiGraph V E ) :
+    Prop := γ ≤ G.SpectralGap
+
+/-! # 2.4 Relationships Between Expansion Notions -/
+
+/-- The characteristic vector of a set of vertices-/
+def CharacteristicVectorofVertexSet {V : Type*} [DecidableEq V]
+    (S : Finset V) : V → ℝ :=
+  fun v => if v ∈ S then 1 else 0
+
+/-- The main theorem for spectral expansion implies vertex expansion -/
+theorem SpectralImpliesVertex {V E : Type*} [Fintype V] [DecidableEq V]
+    [DecidableEq E] (G : MultiDiGraph V E) (hV: 0 < #G.vertices )
+    (r : ℕ) (hr : 0 < r) (hr1 : G.isRegularOfDegree r) :
+    ∀ γ : ℝ, ((γ ∈ Set.Ioc 0 1) ∧ (spectralExpander γ G)
+        → ( ∀ α ∈ Set.Icc 0 1 ,
+        vertexExpander (α * (#G.vertices)) (1 / ((1 - α ) * (1-γ)^2 + α ) ) G )) := by
+  sorry
+
+/-- A notable special case of `SpectralImpliesVertex`: a `γ` spectral expander is in particular
+a `(|G| / 2, 1 + γ)` spectral expander -/
+theorem SpectralImpliesVertexCor {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq E]
+    (G : MultiDiGraph V E) (hV: 0 < #G.vertices )
+    (r : ℕ) (hr : 0 < r) (hr1 : G.isRegularOfDegree r) :
+    ∀ γ : ℝ, (γ ∈ Set.Ioc 0 1) ∧ (spectralExpander γ G)
+        → vertexExpander (1/2 * (#G.vertices : ℝ ) ) (1 + γ) G := by
+  sorry
+
+/-- The expander mixing lemma relating spectral expansion to edge expansion. -/
+lemma ExpanderMixingLemma {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq E]
+    (G : MultiDiGraph V E) (hV: 0 < #G.vertices ) (r : ℕ)
+    (hr : 0 < r ∧ G.isRegularOfDegree r) (γ : ℝ) (hγ : spectralExpander γ G) :
+    ∀ S ⊆ G.vertices, ∀ T ⊆ G.vertices, |((MultiDiGraph.eST G S T) : ℝ)
+        / (#(G.vertices)*(r : ℝ)) - ((#S : ℝ) / (#G.vertices : ℝ))
+        * ((#T : ℝ) / (#G.vertices : ℝ))| ≤ (1 - γ) * √ (((#S : ℝ) / (#G.vertices : ℝ))
+        * (1- ((#S : ℝ) / (#G.vertices : ℝ)) ) * ((#T : ℝ) / (#G.vertices : ℝ))
+        * (1- ((#T : ℝ) /(#G.vertices : ℝ)) )) := by
+  sorry
+
+/-- Non-zero spectral expansion implies non-zero edge expansion-/
+lemma SpectralImpliesEdgeExpansion {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq E]
+    (G : MultiDiGraph V E) (hV: 0 < #G.vertices)
+    (r : ℕ) (hr : 0 < r ∧ G.isRegularOfDegree r)  (γ : ℝ) (hγ : spectralExpander γ G) (hγ2 : 0 < γ):
+    edgeExpander ((#G.vertices : ℝ) / 2) (γ / 2) r G := by
+  sorry
+
+/-! ## Layer 3: Random regular graphs are good expanders -/
 
 
 
