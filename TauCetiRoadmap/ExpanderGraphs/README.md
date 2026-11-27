@@ -35,7 +35,7 @@ The purpose of this layer is to establish the graph-theoretic and linear-algebra
 
 ### 1.1  Multidigraphs, degree and regularity
 
-Develop a representation of finite directed multigraphs which permits parallel edges.
+Develop a representation of finite directed multigraphs which permits parallel edges. ```Suggested.Lean`` gives a suitable structure, which has the advantage (over, for example ```Quiver```, which is built for category theory) of enabling the full spectral API to be constructed, as is required the theory of expander graphs.
 
 The formalisation should cover:
 
