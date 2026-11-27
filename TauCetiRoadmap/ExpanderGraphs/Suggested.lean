@@ -204,7 +204,78 @@ lemma SpectralImpliesEdgeExpansion {V E : Type*} [Fintype V] [DecidableEq V] [De
 
 /-! ## Layer 3: Random regular graphs are good expanders -/
 
+/-! # 3.1 Random regular bipartite graphs are good expanders -/
 
+/-- Prop for when a graph is bipartite with specified left part -/
+def isBipartite_vleft {V E : Type*} (G : MultiDiGraph V E) (vleft : Finset V) : Prop :=
+  vleft ⊆ G.vertices -- basic requirement
+  ∧ (∀ u ∈ vleft, ∀ v ∈ vleft,
+  ¬ (∃ e ∈ G.edges, (G.edgeMap e).fst = u ∧ (G.edgeMap e).snd = v ))
+  -- no edges between vertices in the left part
+  ∧ (∀ u ∉ vleft, ∀ v ∉ vleft,
+  ¬ (∃ e ∈ G.edges, (G.edgeMap e).fst = u ∧ (G.edgeMap e).snd = v ))
+  -- no edges between vertices in the right part
 
+/-- Prop for when a graph is in `Bip n r` with left part specified
+for convenience -/
+def isBipartite_n_r_vleft {V E : Type*}  [DecidableEq V] (G : MultiDiGraph V E)
+    (n : ℕ) (r : ℕ) (vleft : Finset V) : Prop :=
+  #vleft = n -- size of the left part
+  ∧ #G.vertices = 2 * n -- equal sized parts
+  ∧ isBipartite_vleft G vleft
+  ∧ ∀ u ∈ vleft, G.OutDegree u = r -- left out regular
+
+/-- Prop for when a graph is a bipartite vertex expander-/
+def isBipartiteVertexExpander {V E : Type*} [DecidableEq V]
+    (G : MultiDiGraph V E) (K : ℝ) (A : ℝ)
+    (vleft : Finset V)
+    : Prop :=
+  ∃ n : ℕ, ∃ r : ℕ, (isBipartite_n_r_vleft G n r vleft) ∧
+      ∀ s ⊆ vleft, (A * #s ≤ #(MultiDiGraph.neighbourhoodOfSet G s)) ∨ K < #s
+
+/-- Map from an array of random numbers to the corresponding left out-regular
+bipartite graph -/
+def Ω (n r : ℕ) (M : Fin r → Fin n → Fin n) :
+    MultiDiGraph (Fin (n + n)) (Fin r × Fin n) :=
+  let edges : Finset (Fin r × Fin n) := Finset.univ
+  let edgeMap : (Fin r × Fin n) → (Fin (n + n) × Fin (n + n)) :=
+    fun (i, j) ↦ (Fin.castAdd n j, Fin.natAdd n (M i j))
+  {
+    vertices := Finset.univ,
+    edges := edges,
+    edgeMap := edgeMap,
+    edgesValid := by
+      intros e he
+      simp only [mem_product]
+      aesop
+  }
+
+/-- All functions from Fin n to Fin m -/
+def allFns (n m : ℕ) : Finset (Fin n → Fin m) :=
+  univ.image (fun f : Fin n → Fin m => f)
+
+/-- All functions from Fin r to Fin n to Fin n -/
+def allM (n r : ℕ) : Finset (Fin r → Fin n → Fin n) :=
+  Finset.univ.image id
+
+open Classical
+
+/-- All graphs for all possible M, as defined in `def allM` -/
+noncomputable def allGraphs (n r : ℕ) :
+  Finset (MultiDiGraph (Fin (n + n)) (Fin r × Fin n)) :=
+  (allM n r).image (Ω n r)
+
+/-- The set of all graphs that satisfy the expansion condition -/
+noncomputable def allGraphsH  (n r : ℕ) :
+  Finset (MultiDiGraph (Fin (n + n)) (Fin r × Fin n)) :=
+  {G ∈ allGraphs n r | isBipartiteVertexExpander G (n / ((Real.exp 1)^3 * r^4))
+  (r-2) {i : Fin (n + n) | i < n} }
+
+/-- At least two thirds of graphs constructed by `Ω` are
+    (Θ(n), θ(r))- bipartite vertex expanders -/
+theorem vertex_expanders_exist (n r : ℕ) (hn : 1 ≤ n) (hr : 2 ≤ r):
+    (2 / 3 : ℝ) ≤ #(allGraphsH n r) / #(allGraphs n r) := by
+  sorry
 
 end TauCetiRoadmap.ExpanderGraphs
+
