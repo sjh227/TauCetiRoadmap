@@ -276,9 +276,6 @@ def Ω (n r : ℕ) (M : Fin r → Fin n → Fin n) :
       aesop
   }
 
-/-- All functions from Fin n to Fin m -/
-def allFns (n m : ℕ) : Finset (Fin n → Fin m) :=
-  univ.image (fun f : Fin n → Fin m => f)
 
 /-- All functions from Fin r to Fin n to Fin n -/
 def allM (n r : ℕ) : Finset (Fin r → Fin n → Fin n) :=
@@ -299,7 +296,7 @@ noncomputable def allGraphsH  (n r : ℕ) :
 
 /-- At least two thirds of graphs constructed by `Ω` are
     (Θ(n), θ(r))- bipartite vertex expanders -/
-theorem vertex_expanders_exist (n r : ℕ) (hn : 1 ≤ n) (hr : 2 ≤ r):
+theorem bipartite_vertex_expanders_exist (n r : ℕ) (hn : 1 ≤ n) (hr : 2 ≤ r):
     (2 / 3 : ℝ) ≤ #(allGraphsH n r) / #(allGraphs n r) := by
   sorry
 
