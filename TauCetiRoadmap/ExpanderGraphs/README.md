@@ -171,8 +171,20 @@ This roadmap owns the targets stated above. Further results in the theory of exp
 
 ### From Mathlib
 
-Mathlib dependencies.
+The development should make use of existing Mathlib facilities wherever possible.
 
+The principal areas of Mathlib likely to be relevant are:
+
+- Finite combinatorics: Finset, Fintype, finite functions, powersets and cardinality.
+- Linear algebra: matrices, finite-dimensional vector spaces, inner products and operator norms.
+- Real analysis: norms, inequalities, suprema, convergence and real-valued bounds.
+- Graph theory: existing finite graph and multigraph-related constructions where applicable.
+- Probability: finite probability distributions, independence, expectations and probability inequalities.
+- Enumerative combinatorics: binomial coefficients, finite sums, products and counting arguments.
+
+These are indicative dependency areas, not a requirement to introduce new abstractions or imports. Contributors should first identify and reuse existing Mathlib results.
+
+The repository's pinned Mathlib revision is authoritative. Any proposed dependency or API should be checked against that revision.
 
 ## References
 [1] https://github.com/sjh227/LeanExpanderGraph 
