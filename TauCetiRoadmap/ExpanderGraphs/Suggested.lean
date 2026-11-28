@@ -388,7 +388,7 @@ probability at least `1/2`.
 theorem random_regular_graphs_expand (D : ℕ) (hD : 3 ≤ D) :
     ∃ α : ℝ, 0 < α ∧ ∃ N₀ : ℕ, ∀ N : ℕ, N₀ ≤ N → Even (N * D) →
       (1 / 2 : ℝ) ≤
-        (#(goodPairings N D α ((D : ℝ) - 101 / 100)) : ℝ) / (#(allPairings N D) : ℝ) := by
+        ((#(goodPairings N D α ((D : ℝ) - 101 / 100)) : ℝ) / (#(allPairings N D) : ℝ)) := by
   sorry
 
 end TauCetiRoadmap.ExpanderGraphs
